@@ -87,7 +87,7 @@
       photo.setAttribute('src', data);
         
       var link = document.createElement('a');
-      link.download = "my-image.png";
+      link.download = "sample.png";
       link.href = data;
       link.click();
     } else {
