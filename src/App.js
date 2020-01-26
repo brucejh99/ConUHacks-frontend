@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import request from 'request';
 import DonutChart from './components/DonutChart';
 import LineChart from './components/LineChart';
 
@@ -46,9 +47,14 @@ const toLineDataset = data => {
   return { moods, points }
 }
 
-const App = () => {
+class App extends React.Component {
+    
+    state = {
+        pieData: null,
+        lineData: null
+    }
 
-  const mockData = {
+mockData = {
     'active': [
       {'running': 1, 'gym': 1},
       {'running': 1, 'arena': 1},
@@ -81,19 +87,35 @@ const App = () => {
       }
     ]
   }
-
-  const pieData = toPieDataset(mockData);
-  const lineData = toLineDataset(mockData);
-  console.log(lineData);
-
-  return (
-    <div>
-      {/* <div className="chartContainer"> */}
-        <DonutChart data={pieData} />
-        <LineChart data={lineData} />
-      {/* </div> */}
-    </div>
-  );
+  
+    componentDidMount() {
+        const options = {
+          url: 'http://localhost:9000/a/',
+          headers: {
+            'Access-Control-Allow-Origin': '*'
+          }
+        };
+        request.get('http://localhost:9000/a/', (err, res, body) => {
+            console.log(err);
+            console.log(res);
+            console.log(body);
+            this.setState({
+                pieData: toPieDataset(body.content),
+                lineData: toLineDataset(body.content)
+            });
+        });
+        
+    }
+    
+    render() {
+        return (
+    (this.state.pieData && this.state.lineData) ?
+            <div>
+        <DonutChart data={this.state.pieData} />
+        <LineChart data={this.state.lineData} />
+      </div> : null
+        );
+    }
 }
 
 export default App;
