@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Chart from 'chart.js';
-import pattern from 'patternomaly';
 
 export default class DonutChart extends Component {
     chartRef = React.createRef();
