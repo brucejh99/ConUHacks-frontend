@@ -1,25 +1,20 @@
 import React, { Component } from 'react';
 import Chart from 'chart.js';
+import pattern from 'patternomaly';
 
 export default class DonutChart extends Component {
     chartRef = React.createRef();
 
     componentDidMount() {
-        const myChartRef = this.chartRef.current.getContext("2d");
-        
-        new Chart(myChartRef, {
+        const ctx = this.chartRef.current.getContext("2d");
+
+        new Chart(ctx, {
             type: "doughnut",
-            data: this.props.data,
-            options: {
-                //Customize chart options
-            }
+            data: this.props.data
         });
     }
 
     render() {
-        const options = {
-
-        }
         return (
             <div>
                 <canvas

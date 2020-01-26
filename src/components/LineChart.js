@@ -10,17 +10,15 @@ export default class LineChart extends Component {
         new Chart(myChartRef, {
             type: "line",
             data: {
-                //Bring in data
-                labels: ["Jan", "Feb", "March"],
+                // Bring in data
+                labels: this.props.data.points,
                 datasets: [
                     {
-                        label: "Sales",
-                        data: [86, 67, 91],
+                        label: this.props.data.points,
+                        data: this.props.data.moods,
+                        borderColor: 'purple'
                     }
                 ]
-            },
-            options: {
-                //Customize chart options
             }
         });
     }
